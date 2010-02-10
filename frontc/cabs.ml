@@ -116,6 +116,9 @@ and definition =
 	| ONLYTYPEDEF of name_group
 		(** Definition of lonely "struct", "union" or "enum". *)
   | DEF_COMMENT of string
+    (** any comment *)
+  | DEF_INCLUDE of string
+    (** a #include, only at global level of grammar *)
 
 (** A C files is composed of C definitions *)
 and file = definition list				
