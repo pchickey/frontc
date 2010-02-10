@@ -277,8 +277,8 @@ let hex_escape = '\\' ['x' 'X'] hexdigit hexdigit
 let oct_escape = '\\' octdigit  octdigit octdigit
 
 rule initial =
-	parse 	"/*"			{let _ = comment lexbuf in initial lexbuf}
-	|		"//"			{test_gcc (); let _ = line_comment lexbuf in initial lexbuf }
+	parse 	"/*"			{COMMENT(comment lexbuf)}
+	|		"//"			{LINECOMMENT(line_comment lexbuf)}
 	|		blank			{initial lexbuf}
 	|		'#'				{line lexbuf}
 	
@@ -347,12 +347,12 @@ rule initial =
 								(Lexing.lexeme_end lexbuf);
 							initial lexbuf}
 and comment =
-	parse 	"*/"			{()}
-	| 		_ 				{comment lexbuf}
+	parse 	"*/"			{""}
+	| 		_ 				{ let cur = (Lexing.lexeme lexbuf) in cur ^ (comment lexbuf) }
 
 and line_comment =
-	parse 	"\n"			{()}
-	| 		_ 				{line_comment lexbuf}
+	parse 	"\n"			{""}
+	| 		_ 				{let cur = (Lexing.lexeme lexbuf) in cur ^ (line_comment lexbuf)}
 
 (* # <line number> <file name> ... *)
 and line =
