@@ -176,6 +176,8 @@ let set_tline _type =
 %token <Cabs.gnu_attrs> GNU_ATTRS
 %token <string> COMMENT
 %token <string> LINECOMMENT
+%token <string> STANDARDINCLUDE
+%token <string> LOCALINCLUDE
 
 %token EOF
 %token CHAR INT DOUBLE FLOAT VOID
