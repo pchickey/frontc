@@ -8,6 +8,7 @@
 *.cmxa
 *.output
 *.a
+*.swp
 frontc/clexer.ml
 frontc/cparser.ml
 frontc/cparser.mli
