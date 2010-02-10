@@ -115,6 +115,8 @@ and definition =
 		(** Definition of a typedef. *)
 	| ONLYTYPEDEF of name_group
 		(** Definition of lonely "struct", "union" or "enum". *)
+  | COMMENT of string
+  | LINECOMMENT  of string
 
 (** A C files is composed of C definitions *)
 and file = definition list				
