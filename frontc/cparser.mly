@@ -301,8 +301,8 @@ global:
 |		gcc_attribute TYPEDEF typedef_type typedef_defs SEMICOLON
 			{let _ = List.iter (fun (id, _, _, _) -> Clexer.add_type id) $4 in
 			TYPEDEF (set_name_group (fst $3, snd $3) $4, $1)}
-|   COMMENT { COMMENT( $1 ) }
-|   LINECOMMENT { LINECOMMENT( $1 ) } 
+|   COMMENT { DEF_COMMENT( $1 ) }
+|   LINECOMMENT { DEF_COMMENT( $1 ) } 
 ;
 global_type:
 		global_mod_list_opt global_qual
@@ -466,8 +466,8 @@ old_dec:
 local:
 		local_type local_defs SEMICOLON
 			{DECDEF (set_name_group $1 (List.rev $2))}
-    | COMMENT { COMMENT( $1 ) }
-    | LINECOMMENT { LINECOMMENT ( $1 ) }
+    | COMMENT { DEF_COMMENT( $1 ) }
+    | LINECOMMENT { DEF_COMMENT ( $1 ) }
 ;
 local_type:
 		local_mod_list_opt local_qual
@@ -984,10 +984,10 @@ expression:
 			{set_eline $2 (BINARY(SHL_ASSIGN ,$1 , $3))}
 |		expression SUP_SUP_EQ expression
 			{set_eline $2 (BINARY(SHR_ASSIGN ,$1 , $3))}
-|   expression COMMENT
-      {EXP_COMMENT($1, $2)}
-|   expression LINECOMMENT
-      {EXP_COMMENT($1, $2)}
+|   COMMENT expression
+      {EXP_COMMENT($2, $1)}
+|   LINECOMMENT expression
+      {EXP_COMMENT($2, $1)}
 
 ;
 constant:
@@ -1068,6 +1068,11 @@ statement:
 			{ ASM $3 }
 |		ASM LPAREN CST_STRING gnu_asm_io gnu_asm_io opt_gnu_asm_mods RPAREN SEMICOLON
 			{ Clexer.test_gcc(); GNU_ASM ($3, List.rev $4, List.rev $5, List.rev $6) }
+|   COMMENT statement
+      { STAT_COMMENT( $2, $1 ) }
+|   LINECOMMENT statement
+      { STAT_COMMENT( $2, $1 ) }
+
 ;
 
 
