@@ -758,6 +758,17 @@ and print_def def =
 		new_line ();
 		force_new_line ()
 		
+  | COMMENT com ->
+    print "/*";
+    print com;
+    print "*/";
+    force_new_line ()
+  
+  | LINECOMMENT com ->
+    print "//";
+    print com;
+    force_new_line ()
+
 
 (*  print abstrac_syntax -> ()
 **		Pretty printing the given abstract syntax program.
