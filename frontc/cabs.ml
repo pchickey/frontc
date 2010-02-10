@@ -115,8 +115,7 @@ and definition =
 		(** Definition of a typedef. *)
 	| ONLYTYPEDEF of name_group
 		(** Definition of lonely "struct", "union" or "enum". *)
-  | COMMENT of string
-  | LINECOMMENT  of string
+  | DEF_COMMENT of string
 
 (** A C files is composed of C definitions *)
 and file = definition list				
@@ -167,6 +166,7 @@ and statement =
 		(** GNU "asm" support. *)
 	| STAT_LINE of statement * string * int
 		(** Information the filename and the line number of the contained statement. *)
+  | STAT_COMMENT of statement * string
 
 and gnu_asm_arg =  string * string * expression
 
