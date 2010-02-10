@@ -369,12 +369,12 @@ and poundinclude =
   | blank       {poundinclude lexbuf}
   | _           {endline lexbuf}
 and standardinclude =
-  parse '\n'    {""}
+  parse '\n'    {""}  (* this should be an error *)
   | '>'     {""}
   | _       {let cur = (Lexing.lexeme lexbuf) in 
             cur ^ (standardinclude lexbuf) }
 and localinclude =
-  parse '\n'    {""}
+  parse '\n'    {""}  (* this should be an error *)
   | '"'     {""}
   | _       {let cur = (Lexing.lexeme lexbuf) in 
             cur ^ (localinclude lexbuf)}
