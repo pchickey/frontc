@@ -305,6 +305,8 @@ global:
 			TYPEDEF (set_name_group (fst $3, snd $3) $4, $1)}
 |   COMMENT { DEF_COMMENT( $1 ) }
 |   LINECOMMENT { DEF_COMMENT( $1 ) } 
+|   STANDARDINCLUDE { DEF_INCLUDE( $1 ) }
+|   LOCALINCLUDE { DEF_INCLUDE( $1 ) }
 ;
 global_type:
 		global_mod_list_opt global_qual
