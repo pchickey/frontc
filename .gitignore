@@ -1,0 +1,10 @@
+.dep
+.depend
+*.o
+*.cmi
+*.cmo
+*.cmx
+*.cma
+*.cmxa
+*.output
+*.a
