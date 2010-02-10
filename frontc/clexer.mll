@@ -280,7 +280,7 @@ rule initial =
 	parse 	"/*"			{COMMENT(comment lexbuf)}
 	|		"//"			{LINECOMMENT(line_comment lexbuf)}
 	|		blank			{initial lexbuf}
-	|		'#'				{line lexbuf}
+  |		'#'				{line lexbuf}
 	
 	|		'\''			{CST_CHAR (chr lexbuf)}
 	|		'"'				{CST_STRING (str lexbuf)} 
@@ -351,16 +351,33 @@ and comment =
 	| 		_ 				{ let cur = (Lexing.lexeme lexbuf) in cur ^ (comment lexbuf) }
 
 and line_comment =
-	parse 	"\n"			{""}
+	parse 	'\n'			{""}
 	| 		_ 				{let cur = (Lexing.lexeme lexbuf) in cur ^ (line_comment lexbuf)}
 
 (* # <line number> <file name> ... *)
 and line =
 	parse	'\n'			{initial lexbuf}
 	|	blank				{line lexbuf}
-	|	intnum				{set_line (int_of_string (Lexing.lexeme lexbuf));
+	| "include" {poundinclude lexbuf}
+  |	intnum				{set_line (int_of_string (Lexing.lexeme lexbuf));
 							file lexbuf}
 	|	_					{endline lexbuf}
+and poundinclude =
+  parse '\n'    {initial lexbuf}
+  | '<'         {STANDARDINCLUDE(standardinclude lexbuf)}
+  | '"'         {LOCALINCLUDE(localinclude lexbuf)}
+  | blank       {poundinclude lexbuf}
+  | _           {endline lexbuf}
+and standardinclude =
+  parse '\n'    {""}
+  | '>'     {""}
+  | _       {let cur = (Lexing.lexeme lexbuf) in 
+            cur ^ (standardinclude lexbuf) }
+and localinclude =
+  parse '\n'    {""}
+  | '"'     {""}
+  | _       {let cur = (Lexing.lexeme lexbuf) in 
+            cur ^ (localinclude lexbuf)}
 and file =
 	parse '\n'				{initial lexbuf}
 	|	blank				{file lexbuf}
