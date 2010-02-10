@@ -466,6 +466,8 @@ old_dec:
 local:
 		local_type local_defs SEMICOLON
 			{DECDEF (set_name_group $1 (List.rev $2))}
+    | COMMENT { COMMENT( $1 ) }
+    | LINECOMMENT { LINECOMMENT ( $1 ) }
 ;
 local_type:
 		local_mod_list_opt local_qual
@@ -982,6 +984,11 @@ expression:
 			{set_eline $2 (BINARY(SHL_ASSIGN ,$1 , $3))}
 |		expression SUP_SUP_EQ expression
 			{set_eline $2 (BINARY(SHR_ASSIGN ,$1 , $3))}
+|   expression COMMENT
+      {EXP_COMMENT($1, $2)}
+|   expression LINECOMMENT
+      {EXP_COMMENT($1, $2)}
+
 ;
 constant:
 		CST_INT							{CONST_INT $1}					

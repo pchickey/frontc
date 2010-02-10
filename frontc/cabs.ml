@@ -250,6 +250,8 @@ and expression =
 		(** GNU braces inside an expression. *)
 	| EXPR_LINE of expression * string * int
 		(** Record the file and line of the expression. *)
+  | EXP_COMMENT of expression * string
+
 
 (** Constant values. *)
 and constant =
