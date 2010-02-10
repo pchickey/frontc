@@ -1,3 +1,9 @@
+FrontC fork by Pat Hickey
+-------------------------
+I'm working on a research project with Professor Chung-chieh Shan which will replace the C preprocessor with an OCAML based code generation system. We think it will be adventageous for a code generator to directly manipulate the C AST. So far I'm working on support for comments and include files, and the pretty-printer (cprint). 
+
+Everything is pretty experimental and testing is very limited right now.
+
 Front V3.4
 ----------
 
