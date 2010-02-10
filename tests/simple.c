@@ -11,7 +11,8 @@ int main (void)
         // first item in body
         int x;
         // after int x
-        printf("hello world\n");
+        printf("hello world %d\n", // inside printf
+        3);
         // after printf
         return 0;
 }
