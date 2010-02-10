@@ -1,3 +1,4 @@
+#include "localdef.h"
 #include <stddef.h>
 char buf[255] = "hello";
 int i;
