@@ -8,3 +8,10 @@
 *.cmxa
 *.output
 *.a
+frontc/clexer.ml
+frontc/cparser.ml
+frontc/cparser.mli
+calipso/calipso
+calipso/calipso_stat
+ctoxml/ctoxml
+printc/printc
