@@ -174,6 +174,8 @@ let set_tline _type =
 %token <string> CST_STRING
 %token <string> NAMED_TYPE
 %token <Cabs.gnu_attrs> GNU_ATTRS
+%token <string> COMMENT
+%token <string> LINECOMMENT
 
 %token EOF
 %token CHAR INT DOUBLE FLOAT VOID
@@ -299,6 +301,8 @@ global:
 |		gcc_attribute TYPEDEF typedef_type typedef_defs SEMICOLON
 			{let _ = List.iter (fun (id, _, _, _) -> Clexer.add_type id) $4 in
 			TYPEDEF (set_name_group (fst $3, snd $3) $4, $1)}
+|   COMMENT { COMMENT( $1 ) }
+|   LINECOMMENT { LINECOMMENT( $1 ) } 
 ;
 global_type:
 		global_mod_list_opt global_qual
