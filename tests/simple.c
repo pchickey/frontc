@@ -12,5 +12,6 @@ int main (void)
         int x;
         // after int x
         printf("hello world\n");
+        // after printf
         return 0;
 }
