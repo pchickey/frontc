@@ -773,6 +773,12 @@ and print_def def =
 		
   | DEF_COMMENT com ->
     print_com com
+(* right now the def_include type doesnt distinguish between local and standard defs *)
+(* so i'm putting neither "" nor <> around the string. proof of concept, rather. *)
+  | DEF_INCLUDE inc ->
+    print "#include ";
+    print inc;
+    force_new_line ()
 
 
 (*  print abstrac_syntax -> ()
