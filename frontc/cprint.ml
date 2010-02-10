@@ -175,6 +175,12 @@ let get_size siz =
 	| LONG -> "long "
 	| LONG_LONG -> "long long "
 
+and print_com com = 
+  print "/*";
+  print com;
+  print " */";
+  force_new_line ()
+
 let rec print_base_type typ =
 	match typ with
 	NO_TYPE -> ()
@@ -641,6 +647,9 @@ and print_statement stat =
 		print ");"
 	| STAT_LINE (stat, _, _) ->
 		print_statement stat
+  | STAT_COMMENT (stat, com) ->
+    print_com com;
+    print_statement stat
 
 and print_gnu_asm_arg (id, desc, exp) =
 	if id <> "" then print ("[" ^ id ^ "]");
@@ -758,16 +767,8 @@ and print_def def =
 		new_line ();
 		force_new_line ()
 		
-  | COMMENT com ->
-    print "/*";
-    print com;
-    print "*/";
-    force_new_line ()
-  
-  | LINECOMMENT com ->
-    print "//";
-    print com;
-    force_new_line ()
+  | DEF_COMMENT com ->
+    print_com com
 
 
 (*  print abstrac_syntax -> ()
