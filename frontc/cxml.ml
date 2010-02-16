@@ -164,13 +164,13 @@ let rec output_node out indent node =
 		
 	| COM text
 		-> 
-    let rexp = Str.regexp "\n" in 
-    let text = Str.global_replace rexp (indent ^ "    ") text in
+    let rexp = Str.regexp "\n[ \t]*" in 
+    let text = Str.global_replace rexp (indent ^ "     ") text in
     begin
 			output indent;
 			output "<!--";
 			output text;
-			output "-->"
+			output "--> "
 		end
 		
 	| PI (id, data)
