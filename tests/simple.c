@@ -14,6 +14,7 @@ int main (void)
         // after int x
         printf("hello world %d\n", // inside printf
         3);
-        // after printf
+        /* after printf, a
+        multi-line comment */
         return 0;
 }

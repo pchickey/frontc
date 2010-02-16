@@ -5,7 +5,7 @@ SOURCES = \
 	ctoxml_bin.ml
 
 OCAML_INC += ../frontc
-OCAML_LIB += unix ../frontc/frontc
+OCAML_LIB += unix str ../frontc/frontc
 
 $(eval $(call ocaml_prog,ctoxml,$(SOURCES)))
 

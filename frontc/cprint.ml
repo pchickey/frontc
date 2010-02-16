@@ -29,7 +29,7 @@ let version = "Cprint 2.1e 9.1.99 Hugues Cassé"
 *)
 let out = ref stdout
 let width = ref 80
-let tab = ref 8
+let tab = ref 2
 let max_indent = ref 60
 
 let line = ref ""
@@ -175,9 +175,18 @@ let get_size siz =
 	| LONG -> "long "
 	| LONG_LONG -> "long long "
 
-and print_com com = 
-  print "/*";
-  print com;
+let print_com com = 
+  print "/* ";
+  let start_of_line = ref false in 
+  let newline_escape c =
+    if !start_of_line 
+      then if (c = '\t' || c = ' ') 
+        then ( start_of_line := true; () ) (* print nothing *)
+        else ( start_of_line := false; print (String.make 1 c) )
+      else if c = '\n' 
+        then ( start_of_line := true; new_line (); print "    " )
+        else ( start_of_line := false; print (String.make 1 c) )
+  in String.iter newline_escape com;
   print " */";
   force_new_line ()
 
