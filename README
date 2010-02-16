@@ -1,8 +1,8 @@
 FrontC fork by Pat Hickey
 -------------------------
-I'm working on a research project with Professor Chung-chieh Shan which will replace the C preprocessor with an OCAML based code generation system. We think it will be adventageous for a code generator to directly manipulate the C AST. So far I'm working on support for comments and include files, and the pretty-printer (cprint). 
+I'm working on a research project with Professor Chung-chieh Shan which will replace the C preprocessor with an OCAML based code generation system. We think it will be adventageous for a code generator to directly manipulate the C AST. So far I've added support for comments in the pretty printers- in printc, comments are preserved and pretty printed; in ctoxml, comments are pretty printed as XML comments. 
 
-Everything is pretty experimental and testing is very limited right now.
+I'm working on support for #include directives so that you don't need to run a file through cpp to have all the type names defined.
 
 Front V3.4
 ----------
