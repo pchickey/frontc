@@ -163,7 +163,10 @@ let rec output_node out indent node =
 		-> output text
 		
 	| COM text
-		-> begin
+		-> 
+    let rexp = Str.regexp "\n" in 
+    let text = Str.global_replace rexp (indent ^ "    ") text in
+    begin
 			output indent;
 			output "<!--";
 			output text;
