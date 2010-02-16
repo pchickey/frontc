@@ -119,7 +119,9 @@ and convert_exp exp =
 		Cxml.new_elt "expr_line"
 			[("file", file); ("line", string_of_int line)]
 			[convert_exp expr]
-
+  | EXP_COMMENT (expr, comment) ->
+    let elt = convert_exp expr in
+    Cxml.add_children_to_front elt [Cxml.new_com comment]
 
 and convert_stat stat =
 	match stat with
@@ -167,6 +169,9 @@ and convert_stat stat =
 		-> Cxml.new_elt "stat_line"
 			[("file", file); ("line", (string_of_int line))]
 			[convert_stat stat]
+  | STAT_COMMENT (stat, comment)
+    -> let elt = convert_stat stat in
+       Cxml.add_children_to_front elt [Cxml.new_com comment] 
 
 and convert_gnu_asm outs ins clobbers =
 	let process tag id reg exp =
@@ -364,5 +369,8 @@ and convert_def def =
 		List.map (fun name -> convert_typedef store name) names
 	| ONLYTYPEDEF (_type, _, _) ->
 		[convert_onlytypedef _type]
-
+  | DEF_COMMENT (comment) -> 
+    [Cxml.new_com comment]
+  | DEF_INCLUDE (inc_text) ->
+    [Cxml.new_com ("#include " ^ inc_text)]
 

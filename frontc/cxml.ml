@@ -75,6 +75,10 @@ let new_attr name cont: attr = (name, cont)
  *)
 let new_elt name attrs children = ELT(name, attrs, children)
 
+(** Build a comment
+  @param text  Text of the comment
+*)
+let new_com text = COM text
 
 (** Build a new text node.
 	@param text	Content of the node.
@@ -93,6 +97,16 @@ let add_children node children =
 	  	-> ELT (name, attrs, List.append orig_children children)
 	| _ -> raise (Invalid_argument "not an element")
 
+(** Add children to the front of the element node's children.
+  @param node   Element to add to.
+  @param children   Children to add
+  @return   Passed element with children added to the front.
+*)
+let add_children_to_front node children =
+  match node with
+    ELT (name, attrs, orig_children)
+        -> ELT (name, attrs, List.append children orig_children)
+    | _ -> raise (Invalid_argument "not an element")
 
 (** Escape the given attribute value for output.
 	@param text		Text of the attribute.
